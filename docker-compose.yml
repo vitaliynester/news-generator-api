@@ -1,0 +1,22 @@
+version: "3.9"
+
+services:
+  neo4j:
+    restart: always
+    image: neo4j:4.2.3
+    container_name: neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+    volumes:
+      - ./.data/neo4j/data:/data
+      - ./.data/neo4j/var/lib/neo4j/conf:/var/lib/neo4j/conf
+      - ./.data/neo4j/logs:/logs
+      - ./.data/neo4j/var/lib/neo4j/import:/var/lib/neo4j/import
+      - ./.data/neo4j/plugins:/plugins
+    environment:
+      - NEO4J_AUTH=neo4j/testtest
+      - NEO4J_apoc_export_file_enabled=true
+      - NEO4J_apoc_import_file_enabled=true
+      - NEO4J_apoc_import_file_use__neo4j__config=true
+      - NEO4JLABS_PLUGINS=["apoc"]
